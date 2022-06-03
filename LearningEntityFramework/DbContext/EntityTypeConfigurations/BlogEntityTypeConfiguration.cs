@@ -9,12 +9,10 @@ internal class BlogEntityTypeConfiguration : IEntityTypeConfiguration<Blog>
     public void Configure(EntityTypeBuilder<Blog> builder)
     {
         builder.ToTable("Blogs");
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.BlogId);
 
-        builder.Property(x => x.Id).ValueGeneratedOnAdd();
+        builder.Property(x => x.BlogId).ValueGeneratedOnAdd();
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.Property(x => x.CreatedTimestamp);
-
-        builder.HasMany(x => x.Posts).WithOne().HasForeignKey(p => p.Id).OnDelete(DeleteBehavior.Cascade);
     }
 }

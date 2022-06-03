@@ -18,6 +18,8 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite($"Data Source={DbPath}");
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
