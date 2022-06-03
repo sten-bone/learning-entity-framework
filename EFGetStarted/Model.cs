@@ -4,14 +4,14 @@ namespace EFGetStarted;
 
 public class BloggingContext : DbContext
 {
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
+    public DbSet<Blog> Blogs { get; set; } = null!;
+    public DbSet<Post> Posts { get; set; } = null!;
 
     public string DbPath { get; }
 
     public BloggingContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
+        const Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
         DbPath = Path.Join(path, "blogging.db");
     }
@@ -25,7 +25,7 @@ public class BloggingContext : DbContext
 public class Blog
 {
     public int BlogId { get; set; }
-    public string Url { get; set; }
+    public string Url { get; set; } = null!;
 
     public List<Post> Posts { get; } = new();
 }
@@ -33,9 +33,9 @@ public class Blog
 public class Post
 {
     public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
+    public string Title { get; set; } = null!;
+    public string Content { get; set; } = null!;
 
     public int BlogId { get; set; }
-    public Blog Blog { get; set; }
+    public Blog Blog { get; set; } = null!;
 }
