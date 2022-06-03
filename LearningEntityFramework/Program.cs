@@ -1,9 +1,11 @@
-﻿namespace LearningEntityFramework;
+﻿using LearningEntityFramework.DbContext;
 
-public class Program
+namespace LearningEntityFramework;
+
+public static class Program
 {
     public static void Main()
     {
-
+        SeedData.AddBlogSeedData();
     }
 }
