@@ -5,10 +5,8 @@ namespace LearningEntityFramework;
 
 public static class SeedData
 {
-    public static void AddBlogSeedData()
+    public static void AddBlogSeedData(LearningEntityFrameworkDbContext db)
     {
-        var db = new LearningEntityFrameworkDbContext();
-
         var blogA = new Blog("Blog A", new DateTime(2022, 2, 18, 12, 27, 23))
         {
             Posts = new List<Post>

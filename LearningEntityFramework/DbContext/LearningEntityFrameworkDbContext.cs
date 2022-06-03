@@ -13,6 +13,15 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
     {
         var dataFolder = Path.Combine("C:", "AppData", "LearningEntityFramework");
         DbPath = Path.Combine(dataFolder, "learning.db");
+
+        // create DB if it does not yet exist
+        var dbFile = new FileInfo(DbPath);
+        if (!dbFile.Exists)
+        {
+            dbFile.Create();
+            Console.WriteLine("You need to update the database with `dotnet ef database update`");
+            Environment.Exit(1);
+        }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
