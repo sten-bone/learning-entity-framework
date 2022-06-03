@@ -6,7 +6,7 @@ public static class Program
 {
     public static void Main()
     {
-        var db = new LearningEntityFrameworkDbContext();
+        using var db = new LearningEntityFrameworkDbContext();
 
         // create Blog seed data, if needed
         if (!db.Blogs.Any())
