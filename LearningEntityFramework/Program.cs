@@ -1,4 +1,5 @@
 ﻿using LearningEntityFramework.DbContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearningEntityFramework;
 
@@ -14,7 +15,7 @@ public static class Program
             SeedData.AddBlogSeedData(db);
         }
 
-        foreach (var b in db.Blogs)
+        foreach (var b in db.Blogs.AsNoTracking())
         {
             Console.WriteLine(b.Name);
         }
