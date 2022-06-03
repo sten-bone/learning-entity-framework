@@ -23,5 +23,6 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new BlogEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new PostEntityTypeConfiguration());
     }
 }

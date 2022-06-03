@@ -6,12 +6,15 @@ public class Blog
     public string Name { get; set; }
     public DateTime CreatedTimestamp { get; set; }
 
+    public List<Post> Posts { get; set; } = new();
 
-    public Blog(string name)
+
+    public Blog(string name, DateTime createdTimestamp)
     {
         ValidateBlogName(name);
 
         Name = name.Trim();
+        CreatedTimestamp = createdTimestamp;
     }
 
     private static void ValidateBlogName(string name)
