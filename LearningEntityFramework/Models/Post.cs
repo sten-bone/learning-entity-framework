@@ -6,7 +6,6 @@ public class Post
     public string Title { get; set; }
     public string Body { get; set; }
     public DateTime CreatedDate { get; set; }
-    public Blog Blog { get; set; } = null!;
     public int Likes { get; protected set; } = 0;
     public int Dislikes { get; protected set; } = 0;
 

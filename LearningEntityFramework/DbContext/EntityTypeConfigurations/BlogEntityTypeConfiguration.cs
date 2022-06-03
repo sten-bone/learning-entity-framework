@@ -14,5 +14,7 @@ internal class BlogEntityTypeConfiguration : IEntityTypeConfiguration<Blog>
         builder.Property(x => x.BlogId).ValueGeneratedOnAdd();
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
         builder.Property(x => x.CreatedTimestamp);
+
+        builder.HasMany(b => b.Posts).WithOne().OnDelete(DeleteBehavior.Cascade);
     }
 }
