@@ -1,5 +1,4 @@
 ﻿using LearningEntityFramework.DbContext;
-using LearningEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearningEntityFramework;
@@ -84,7 +83,7 @@ public static class Program
 
         // update some details
         newBlogA.Name = "New Blog A";
-        newBlogB.Posts.RemoveAt(2);
+        newBlogB.RemovePostAt(2);
         newBlogC.Posts[0].Title = "Updated title";
         db.SaveChanges();
 

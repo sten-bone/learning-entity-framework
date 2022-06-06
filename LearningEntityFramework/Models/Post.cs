@@ -3,6 +3,7 @@
 public class Post
 {
     public int PostId { get; set; }
+    public int BlogId { get; set; }
     public string Title { get; set; }
     public string Body { get; set; }
     public DateTime CreatedDate { get; set; }
@@ -34,6 +35,6 @@ public class Post
         }
     }
 
-    public void Like() => Likes++;
-    public void Dislike() => Dislikes++;
+    public void Like(int numberOfLikes = 1) => Likes += numberOfLikes;
+    public void Dislike(int numberOfDislikes) => Dislikes += numberOfDislikes;
 }
