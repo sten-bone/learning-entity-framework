@@ -58,6 +58,13 @@ public static class Program
         }
 
         WriteBreak();
+
+        var posts = db.Posts.AsNoTracking();
+        for (var i = 1; i <= 5; i++)
+        {
+            var p = posts.Single(x => x.PostId == i);
+            Console.WriteLine($"Post {i}: {p.Title} ({p.Likes} {(p.Likes == 1 ? "Like" : "Likes")}, {p.Dislikes} {(p.Dislikes == 1 ? "Dislike" : "Dislikes")})");
+        }
     }
 
     private static void WriteBreak()

@@ -8,6 +8,7 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
 {
     internal string DbPath { get; }
     internal DbSet<Blog> Blogs { get; set; } = null!;
+    internal DbSet<Post> Posts { get; set; } = null!;
 
     public LearningEntityFrameworkDbContext()
     {
