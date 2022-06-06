@@ -1,4 +1,5 @@
 ﻿using LearningEntityFramework.DbContext;
+using LearningEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearningEntityFramework;
@@ -65,10 +66,55 @@ public static class Program
             var p = posts.Single(x => x.PostId == i);
             Console.WriteLine($"Post {i}: {p.Title} ({p.Likes} {(p.Likes == 1 ? "Like" : "Likes")}, {p.Dislikes} {(p.Dislikes == 1 ? "Dislike" : "Dislikes")})");
         }
+
+        WriteBreak();
+
+        // add 3 new blogs
+        var newBlogA = SeedData.CreateRandomBlog(7);
+        var newBlogB = SeedData.CreateRandomBlog(10);
+        var newBlogC = SeedData.CreateRandomBlog(4);
+
+        db.Add(newBlogA);
+        db.Add(newBlogB);
+        db.Add(newBlogC);
+        db.SaveChanges();
+
+        PrintAllBlogs(db);
+        WriteBreak();
+
+        // update some details
+        newBlogA.Name = "New Blog A";
+        newBlogB.Posts.RemoveAt(2);
+        newBlogC.Posts[0].Title = "Updated title";
+        db.SaveChanges();
+
+        PrintAllBlogs(db);
+        WriteBreak();
+
+        // remove blogs
+        db.Remove(newBlogA);
+        db.Remove(newBlogB);
+        db.Remove(newBlogC);
+        db.SaveChanges();
+
+        PrintAllBlogs(db);
+        WriteBreak();
     }
 
     private static void WriteBreak()
     {
         Console.WriteLine(new string('=', 72));
+    }
+
+    private static void PrintAllBlogs(LearningEntityFrameworkDbContext db)
+    {
+        foreach (var x in db.Blogs.Include(x => x.Posts).AsNoTracking())
+        {
+            Console.WriteLine($"Blog {x.Name}");
+            foreach (var p in x.Posts)
+            {
+                Console.WriteLine($"\t{p.Title} ({p.Likes} {(p.Likes == 1 ? "Like" : "Likes")}, {p.Dislikes} {(p.Dislikes == 1 ? "Dislike" : "Dislikes")})");
+            }
+        }
     }
 }

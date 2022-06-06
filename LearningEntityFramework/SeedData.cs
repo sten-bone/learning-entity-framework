@@ -71,4 +71,32 @@ public static class SeedData
             p.Dislike();
         }
     }
+
+    public static Blog CreateRandomBlog(int numberPosts)
+    {
+        var blog = new Blog("A randomly generated blog", DateTime.Now)
+        {
+            Posts = new List<Post>()
+        };
+
+        var rand = new Random();
+
+        for (var i = 1; i <= numberPosts; i++)
+        {
+            blog.Posts.Add(CreateRandomPost($"Random post #{i:D2}", "XYZ", rand.Next(10000), rand.Next(10000)));
+        }
+
+        return blog;
+    }
+
+    public static Post CreateRandomPost(string title, string body, int numLikes, int numDislikes)
+    {
+        var post = new Post(title, body)
+        {
+            CreatedDate = DateTime.Now
+        };
+        post.LikePostNTimes(numLikes);
+        post.DislikePostNTimes(numDislikes);
+        return post;
+    }
 }
