@@ -15,9 +15,36 @@ public static class Program
             SeedData.AddBlogSeedData(db);
         }
 
+        // don't track changes
         foreach (var b in db.Blogs.AsNoTracking())
         {
             Console.WriteLine(b.Name);
         }
+
+        Console.WriteLine(new string('=', 72));
+
+        // query eager
+        foreach (var x in db.Blogs.Include(x => x.Posts).AsNoTracking())
+        {
+            Console.WriteLine($"Blog {x.Name}");
+            foreach (var p in x.Posts)
+            {
+                Console.WriteLine($"\t{p.Title}");
+            }
+        }
+
+        Console.WriteLine(new string('=', 72));
+
+        // same query, but explicitly loaded
+        foreach (var x in db.Blogs)
+        {
+            Console.WriteLine($"Blog {x.Name}");
+            foreach (var p in db.Entry(x).Collection(b => b.Posts).Query())
+            {
+                Console.WriteLine($"\t{p.Title}");
+            }
+        }
+
+        Console.WriteLine(new string('=', 72));
     }
 }
