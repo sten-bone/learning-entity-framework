@@ -21,7 +21,7 @@ public static class Program
             Console.WriteLine(b.Name);
         }
 
-        Console.WriteLine(new string('=', 72));
+        WriteBreak();
 
         // query eager
         foreach (var x in db.Blogs.Include(x => x.Posts).AsNoTracking())
@@ -33,18 +33,35 @@ public static class Program
             }
         }
 
-        Console.WriteLine(new string('=', 72));
+        WriteBreak();
 
         // same query, but explicitly loaded
         foreach (var x in db.Blogs)
         {
             Console.WriteLine($"Blog {x.Name}");
-            foreach (var p in db.Entry(x).Collection(b => b.Posts).Query())
+            foreach (var p in db.Entry(x).Collection(b => b.Posts).Query().AsNoTracking())
             {
                 Console.WriteLine($"\t{p.Title}");
             }
         }
 
+        WriteBreak();
+
+        // same query, but with raw SQL
+        foreach (var x in db.Blogs.FromSqlRaw("SELECT * FROM Blogs").Include(x => x.Posts).AsNoTracking())
+        {
+            Console.WriteLine($"Blog {x.Name}");
+            foreach (var p in x.Posts)
+            {
+                Console.WriteLine($"\t{p.Title}");
+            }
+        }
+
+        WriteBreak();
+    }
+
+    private static void WriteBreak()
+    {
         Console.WriteLine(new string('=', 72));
     }
 }
