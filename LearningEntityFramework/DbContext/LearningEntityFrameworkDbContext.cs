@@ -9,6 +9,7 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
     internal string DbPath { get; }
     internal DbSet<Blog> Blogs { get; set; } = null!;
     internal DbSet<Post> Posts { get; set; } = null!;
+    internal DbSet<BlogLogo> BlogLogos { get; set; } = null!;
 
     public LearningEntityFrameworkDbContext()
     {
@@ -28,13 +29,12 @@ public class LearningEntityFrameworkDbContext : Microsoft.EntityFrameworkCore.Db
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite($"Data Source={DbPath}");
-        options.EnableSensitiveDataLogging();
-        options.EnableDetailedErrors();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new BlogEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new PostEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new BlogLogoEntityTypeConfiguration());
     }
 }

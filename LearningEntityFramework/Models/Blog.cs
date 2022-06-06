@@ -5,6 +5,7 @@ public class Blog
     public int BlogId { get; set; }
     public string Name { get; set; }
     public DateTime CreatedTimestamp { get; set; }
+    public BlogLogo BlogLogo { get; set; }
     private readonly List<Post> _posts = new();
     public IReadOnlyList<Post> Posts => _posts;
 
@@ -15,6 +16,7 @@ public class Blog
 
         Name = name.Trim();
         CreatedTimestamp = createdTimestamp;
+        BlogLogo = new BlogLogo("Default caption");
     }
 
     public void AddPost(Post p)
